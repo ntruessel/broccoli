@@ -35,6 +35,7 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    dependsOn("generateMetamodel")
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict", "-Xinline-classes")
         jvmTarget = "11"
