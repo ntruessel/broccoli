@@ -52,6 +52,9 @@ task("generateMetamodel") {
                                             .withValue("src/main/resources/db/migrations/changelog.yml"),
                                     org.jooq.meta.jaxb.Property()
                                             .withKey("includeLiquibaseTables")
-                                            .withValue("false"))))
+                                            .withValue("false")))
+                    .withTarget(org.jooq.meta.jaxb.Target()
+                            .withDirectory("src/main/java/")
+                            .withPackageName("ch.ntruessel.broccoli.server.jooq")))
     org.jooq.codegen.GenerationTool.generate(configuration)
 }
