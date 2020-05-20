@@ -1,24 +1,23 @@
-object Versions {
-    const val jooq = "3.13.2"
-}
+val jooqVersion: String by project
 
 plugins {
     id("org.springframework.boot") version "2.2.7.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     kotlin("jvm") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
 }
 
 buildscript {
+    val jooqVersion: String by project
+
     dependencies {
-        classpath("org.jooq:jooq-codegen:3.13.2")
-        classpath("org.jooq:jooq-meta:3.13.2")
-        classpath("org.jooq:jooq-meta-extensions:3.13.2")
+        classpath("org.jooq:jooq-codegen:${jooqVersion}")
+        classpath("org.jooq:jooq-meta:${jooqVersion}")
+        classpath("org.jooq:jooq-meta-extensions:${jooqVersion}")
     }
 }
 
 group = "ch.ntruessel.broccoli"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 repositories {
     mavenCentral()
@@ -27,7 +26,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
-    implementation("org.jooq:jooq:${Versions.jooq}")
+    implementation("org.jooq:jooq:${jooqVersion}")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.liquibase:liquibase-core:3.9.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0")
