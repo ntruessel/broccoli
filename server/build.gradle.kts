@@ -53,19 +53,24 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 }
 
 task("generateMetamodel") {
-    val configuration = org.jooq.meta.jaxb.Configuration()
-            .withGenerator(org.jooq.meta.jaxb.Generator()
-                    .withDatabase(org.jooq.meta.jaxb.Database()
-                            .withName("org.jooq.meta.extensions.liquibase.LiquibaseDatabase")
-                            .withProperties(
-                                    org.jooq.meta.jaxb.Property()
-                                            .withKey("scripts")
-                                            .withValue("src/main/resources/db/migrations/changelog.yml"),
-                                    org.jooq.meta.jaxb.Property()
-                                            .withKey("includeLiquibaseTables")
-                                            .withValue("false")))
-                    .withTarget(org.jooq.meta.jaxb.Target()
-                            .withDirectory("src/main/java/")
-                            .withPackageName("ch.ntruessel.broccoli.server.jooq")))
-    org.jooq.codegen.GenerationTool.generate(configuration)
+    inputs.files("${projectDir}/src/main/resources/db/migrations/")
+    outputs.dir("${projectDir}/src/main/java")
+    doLast {
+        val configuration = org.jooq.meta.jaxb.Configuration()
+                .withBasedir(projectDir.absolutePath)
+                .withGenerator(org.jooq.meta.jaxb.Generator()
+                        .withTarget(org.jooq.meta.jaxb.Target()
+                                .withDirectory("src/main/java")
+                                .withPackageName("ch.ntruessel.broccoli.server.jooq"))
+                        .withDatabase(org.jooq.meta.jaxb.Database()
+                                .withName("org.jooq.meta.extensions.liquibase.LiquibaseDatabase")
+                                .withProperties(
+                                        org.jooq.meta.jaxb.Property()
+                                                .withKey("scripts")
+                                                .withValue("src/main/resources/db/migrations/changelog.yml"),
+                                        org.jooq.meta.jaxb.Property()
+                                                .withKey("includeLiquibaseTables")
+                                                .withValue("false"))))
+        org.jooq.codegen.GenerationTool.generate(configuration)
+    }
 }
