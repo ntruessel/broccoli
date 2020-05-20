@@ -1,9 +1,10 @@
 val jooqVersion: String by project
+val micronautVersion: String by project
 
 plugins {
-    id("org.springframework.boot") version "2.2.7.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    id("application")
     kotlin("jvm") version "1.3.72"
+    kotlin("kapt") version "1.3.72"
 }
 
 buildscript {
@@ -23,14 +24,23 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass.set("ch.ntruessel.broccoli.server.BroccoliServer")
+}
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-jooq")
+    kapt(enforcedPlatform("io.micronaut:micronaut-bom:${micronautVersion}"))
+    kapt("io.micronaut:micronaut-inject-java")
+    implementation(enforcedPlatform("io.micronaut:micronaut-bom:${micronautVersion}"))
+    implementation("io.micronaut:micronaut-inject")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut:micronaut-http-server-netty")
     implementation("org.jooq:jooq:${jooqVersion}")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.liquibase:liquibase-core:3.9.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0")
     implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
     runtimeOnly("com.h2database:h2:1.4.200")
 }
 

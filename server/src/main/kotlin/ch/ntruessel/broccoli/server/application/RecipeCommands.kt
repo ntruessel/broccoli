@@ -2,9 +2,9 @@ package ch.ntruessel.broccoli.server.application
 
 import ch.ntruessel.broccoli.server.domain.RecipeCreated
 import ch.ntruessel.broccoli.server.domain.RecipeId
-import org.springframework.stereotype.Service
+import javax.inject.Singleton
 
-@Service
+@Singleton
 class RecipeCommands(
         val eventStore: EventStore
 ) {

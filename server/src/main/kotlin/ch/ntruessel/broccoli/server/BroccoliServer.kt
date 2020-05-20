@@ -1,11 +1,15 @@
 package ch.ntruessel.broccoli.server
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import io.micronaut.runtime.Micronaut
 
-@SpringBootApplication
-class BroccoliServer
+object BroccoliServer {
 
-fun main(args: Array<String>) {
-    runApplication<BroccoliServer>(*args)
+    @JvmStatic
+    fun main(args: Array<String>) {
+        Micronaut.build()
+                .packages("ch.ntruessel.broccoli")
+                .mainClass(BroccoliServer.javaClass)
+                .start()
+    }
 }
+

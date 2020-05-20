@@ -6,10 +6,10 @@ import ch.ntruessel.broccoli.server.jooq.tables.Events.EVENTS
 import ch.ntruessel.broccoli.server.jooq.tables.Version.VERSION
 import org.jooq.DSLContext
 import org.jooq.JSON
-import org.springframework.stereotype.Component
 import java.util.*
+import javax.inject.Singleton
 
-@Component
+@Singleton
 class JdbcEventStore(
         val dslContext: DSLContext
 ): EventStore {
