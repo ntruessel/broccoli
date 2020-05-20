@@ -9,6 +9,6 @@ class RecipeCommands(
         val eventStore: EventStore
 ) {
     fun createRecipe() {
-        eventStore.commit(listOf(RecipeCreated(RecipeId())))
+        eventStore.save(listOf(RecipeCreated(RecipeId())))
     }
 }

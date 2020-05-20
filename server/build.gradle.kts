@@ -30,8 +30,9 @@ dependencies {
     implementation("org.jooq:jooq:${Versions.jooq}")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.liquibase:liquibase-core:3.9.0")
-    runtimeOnly("com.h2database:h2:1.4.200")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0")
     implementation(kotlin("stdlib-jdk8"))
+    runtimeOnly("com.h2database:h2:1.4.200")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
