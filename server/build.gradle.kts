@@ -29,9 +29,9 @@ application {
 }
 
 dependencies {
-    kapt(enforcedPlatform("io.micronaut:micronaut-bom:${micronautVersion}"))
+    kapt(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
     kapt("io.micronaut:micronaut-inject-java")
-    implementation(enforcedPlatform("io.micronaut:micronaut-bom:${micronautVersion}"))
+    implementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
     implementation("io.micronaut:micronaut-inject")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-server-netty")
