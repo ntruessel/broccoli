@@ -1,4 +1,6 @@
+val arrowVersion: String by project
 val jooqVersion: String by project
+val kotestVersion: String by project
 val micronautVersion: String by project
 
 plugins {
@@ -38,10 +40,21 @@ dependencies {
     implementation("io.micronaut.configuration:micronaut-jdbc-hikari")
     implementation("io.micronaut.configuration:micronaut-jooq")
     implementation("io.micronaut.configuration:micronaut-liquibase")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("io.arrow-kt:arrow-core:$arrowVersion")
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     runtimeOnly("com.h2database:h2:1.4.200")
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest("io.micronaut:micronaut-inject-java")
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation("io.micronaut.test:micronaut-test-kotlintest")
+    testImplementation("io.kotlintest:kotlintest-assertions-arrow:$kotestVersion") {
+        exclude("io.arrow-kt")
+    }
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:$kotestVersion") {
+        exclude("io.arrow-kt")
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -50,6 +63,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict", "-Xinline-classes")
         jvmTarget = "11"
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 task("generateMetamodel") {
