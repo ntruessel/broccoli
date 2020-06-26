@@ -8,9 +8,9 @@ import {
     Typography,
     List,
     ListItem,
-    ListItemText, Container,
+    ListItemText,
 } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import { Menu, Search } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,28 +18,31 @@ const useStyles = makeStyles((theme: Theme) =>
         menuButton: {
             marginRight: theme.spacing(2),
         },
+        title: {
+            flexGrow: 1,
+        },
     }),
 );
 
-export const RecipeList: React.FC = props => {
+export const RecipeList: React.FC = () => {
     const classes = useStyles();
+    const recipes = ['Spaghetti Carbonara', 'Broccoli'];
+
     return <>
         <AppBar>
             <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <Menu/>
                 </IconButton>
-                <Typography variant="h6">Rezepte</Typography>
+                <Typography className={classes.title} variant="h6">Rezepte</Typography>
+                <IconButton aria-label="search" color="inherit">
+                    <Search/>
+                </IconButton>
             </Toolbar>
         </AppBar>
         <Toolbar/>
-            <List>
-                <ListItem button>
-                    <ListItemText primary="Spaghetti Carbonara"/>
-                </ListItem>
-                <ListItem button>
-                    <ListItemText primary="Broccoli"/>
-                </ListItem>
-            </List>
+        <List>
+            {recipes.map(recipe => <ListItem button><ListItemText primary={recipe}/></ListItem>)}
+        </List>
     </>;
 };
