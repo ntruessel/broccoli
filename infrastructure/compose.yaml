@@ -1,0 +1,9 @@
+services:
+  database:
+    image: postgres:13
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_DB=broccoli
+      - POSTGRES_USER=broccoli
+      - POSTGRES_PASSWORD=password
