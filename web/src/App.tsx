@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AppBar, Container, Toolbar } from '@material-ui/core';
+import { AppBar, Container, styled, Toolbar } from '@material-ui/core';
 import { RecipeOverview } from './pages/RecipeOverview';
 import { CreateRecipe } from './pages/CreateRecipe';
 import { routes } from './utils/routes';
@@ -8,7 +8,7 @@ import { routes } from './utils/routes';
 function App() {
     return <>
         <Router>
-            <AppBar position="fixed">
+            <AppBar position="sticky">
                 <Toolbar/>
             </AppBar>
             <Container>
